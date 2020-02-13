@@ -1,26 +1,28 @@
 import React from 'react';
-import logo from './logo.svg';
+import { Container, Row, Col } from 'reactstrap';
 import './App.css';
 import menusRegister from './menusRegister';
+import MyHeader from './components/MyHeader';
+import MyFooter from './components/MyFooter'
+import MySideBar from './components/MySideBar';
+import BillingForm from './components/BillingForm';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <menusRegister/>
-        <p>
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        
-      </header>
+      <Container>
+        <Row>
+          <MyHeader></MyHeader>                    
+        </Row>
+        <Row>
+          <MySideBar></MySideBar>
+          <BillingForm></BillingForm>
+          <menusRegister/>
+        </Row>
+        <Row>
+          <MyFooter></MyFooter>
+        </Row>
+      </Container>      
     </div>
   );
 }

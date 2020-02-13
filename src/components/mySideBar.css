@@ -1,0 +1,12 @@
+.generic{
+    margin: 0;
+    padding: 0;
+}
+
+.mySideBarClass{
+    position: fixed;
+    height: 100vh;
+    width: 3vw;
+    left: 0;
+    background-color: darkgray;
+}
