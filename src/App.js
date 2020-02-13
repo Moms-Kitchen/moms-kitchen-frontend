@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import './App.css';
-import menusRegister from './components/menusRegister';
+import MenusRegister from './components/MenusRegister';
 import MyHeader from './components/MyHeader';
 import MyFooter from './components/MyFooter'
 import MySideBar from './components/MySideBar';
@@ -17,7 +17,9 @@ function App() {
         <Row>
           <MySideBar></MySideBar>
           <BillingForm></BillingForm>
-          <menusRegister></menusRegister>
+        </Row>
+        <Row>
+          <MenusRegister></MenusRegister>
         </Row>
         <Row>
           <MyFooter></MyFooter>

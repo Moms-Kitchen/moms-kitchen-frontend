@@ -1,12 +1,15 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import {TodoList} from "./TodoList.js/index.js";
+import logo from '../logo.svg';
+import '../App.css';
+import {TodoList} from "./TodoList.js";
+import 'react-datepicker/dist/react-datepicker.css';
+import moment from "moment";
 
-class menusRegister extends React.Component {
+class MenusRegister extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = {items: [], text: '', priority: 0, dueDate: moment()};
         this.handleTextChange = this.handleTextChange.bind(this);
         this.handlePriorityChange = this.handlePriorityChange.bind(this);
         this.handleDateChange = this.handleDateChange.bind(this);
@@ -138,4 +141,4 @@ class menusRegister extends React.Component {
 
 }
 
-export default menusRegister;
+export default MenusRegister;
