@@ -7,6 +7,7 @@ const AlmuerzosItemComponent = ({ almuerzo, showOrderAlmuerzo}) => {
     return (
         <div className = "almuerzos-item text-center">
             <Typography variant="h2">{almuerzo.nombre}</Typography>
+            <p>{almuerzo.descripcion}</p>
             <Button onClick = { () => { showOrderAlmuerzo(almuerzo) } } >
             Ordenar !
             </Button>
