@@ -1,6 +1,5 @@
 import React from 'react';
 import { Input } from 'reactstrap';
-import BillingForm from './BillingForm';
 
 class BillingDate extends React.Component{
     constructor() {
