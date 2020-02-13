@@ -33,11 +33,11 @@ export class menusRegister extends Component {
                 <form onSubmit={this.handleSubmit} className="todo-form">
                     <h3>New TODO</h3>
                     <label htmlFor="text" className="right-margin">
-                        Text:
+                        Entrada:
                     </label>
 
                     <input
-                        id="text"
+                        id="Entrada"
                         onChange={this.handleTextChange}
                         value={this.state.text}>
                     </input>
@@ -45,12 +45,11 @@ export class menusRegister extends Component {
                     <br/>
                     <br/>
                     <label htmlFor="priority" className="right-margin">
-                        Priority:
+                        Proteina:
                     </label>
 
                     <input
-                        id="priority"
-                        type="number"
+                        id="Proteina"
                         onChange={this.handlePriorityChange}
                         value={this.state.priority}>
                     </input>
