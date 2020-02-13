@@ -1,17 +1,22 @@
 import React from 'react';
 import { Container, Row, Col } from 'reactstrap';
-import logo from './logo.svg';
 import './App.css';
+import MyHeader from './components/MyHeader';
+import MyFooter from './components/MyFooter'
+import MySideBar from './components/MySideBar';
 
 function App() {
   return (
     <div className="App">
       <Container>
         <Row>
-          <Col xs={12} sm={3} md={2} lg={1}><di>MOMS KITCHEN</di></Col>
-          <Col xs={12} sm={3} md={2} lg={1}>.</Col>
-          <Col xs={12} sm={3} md={2} lg={1}>............................................</Col>
-          <Col xs={12} sm={3} md={2} lg={1}>..........................................................................</Col>
+          <MyHeader></MyHeader>                    
+        </Row>
+        <Row>
+          <MySideBar></MySideBar>
+        </Row>
+        <Row>
+          <MyFooter></MyFooter>
         </Row>
       </Container>      
     </div>

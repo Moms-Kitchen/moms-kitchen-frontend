@@ -1,0 +1,13 @@
+.generic{
+    margin: 0;
+    padding: 0;
+}
+
+.myFooterClass{
+    position: absolute;
+    height: 5vh;
+    width: 100vw;
+    bottom: 0px;
+    left: 0px;
+    background-color: darkgray;
+}
