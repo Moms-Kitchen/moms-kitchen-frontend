@@ -20,13 +20,13 @@ class menusRegister extends React.Component {
             <div className="App">
                 <header className="App-header">
                     <img src={logo} className="App-logo" alt="logo"/>
-                    <h1 className="App-title">TODO React App</h1>
+                    <h1 className="App-title">Menus Register</h1>
                 </header>
 
                 <br/>
                 <br/>
-                <form onSubmit={this.handleSubmit} className="todo-form">
-                    <h3>New TODO</h3>
+                <form onSubmit={this.handleSubmit} className="Menu-form">
+                    <h3>New Menus</h3>
                     <label htmlFor="text" className="right-margin">
                         Entrada:
                     </label>
@@ -39,17 +39,51 @@ class menusRegister extends React.Component {
 
                     <br/>
                     <br/>
-                    <label htmlFor="priority" className="right-margin">
+                    <label htmlFor="Proteina" className="right-margin">
                         Proteina:
                     </label>
 
                     <input
                         id="Proteina"
                         onChange={this.handlePriorityChange}
-                        value={this.state.priority}>
+                        value={this.state.Proteina}>
                     </input>
+
                     <br/>
                     <br/>
+                    <label htmlFor="Acompanante" className="right-margin">
+                        Acompanante:
+                    </label>
+
+                    <input
+                        id="Acompanante"
+                        onChange={this.handlePriorityChange}
+                        value={this.state.Proteina}>
+                    </input>
+
+                    <br/>
+                    <br/>
+                    <label htmlFor="Jugo" className="right-margin">
+                        Jugo:
+                    </label>
+
+                    <input
+                        id="Jugo"
+                        onChange={this.handlePriorityChange}
+                        value={this.state.Proteina}>
+                    </input>
+
+                    <br/>
+                    <br/>
+                    <label htmlFor="Postre" className="right-margin">
+                        Postre:
+                    </label>
+
+                    <input
+                        id="Postre"
+                        onChange={this.handlePriorityChange}
+                        value={this.state.Proteina}>
+                    </input>
 
                     <br/>
                     <button>
