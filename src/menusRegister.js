@@ -1,17 +1,13 @@
-import React from 'react';
 import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import {TodoList} from "./TodoList.js";
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import moment from "moment";
 
 export class menusRegister extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {items: [], text: '', priority: 0, dueDate: moment()};
+        /*this.state = {items: [], text: '', priority: 0, dueDate: moment()};*/
         this.handleTextChange = this.handleTextChange.bind(this);
         this.handlePriorityChange = this.handlePriorityChange.bind(this);
         this.handleDateChange = this.handleDateChange.bind(this);
@@ -56,12 +52,6 @@ export class menusRegister extends Component {
                     <br/>
                     <br/>
 
-                    <DatePicker
-                        id="due-date"
-                        selected={this.state.dueDate}
-                        placeholderText="Due date"
-                        onChange={this.handleDateChange}>
-                    </DatePicker>
                     <br/>
                     <button>
                         Add #{this.state.items.length + 1}
@@ -115,4 +105,4 @@ export class menusRegister extends Component {
 
 }
 
-export default App;
+export default menusRegister;
