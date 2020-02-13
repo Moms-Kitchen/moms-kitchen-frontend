@@ -1,0 +1,8 @@
+.almuerzos-list{
+    display: flex;
+    flex-direction: column;
+}
+
+.almuerzos-item{
+    display: flex;
+}

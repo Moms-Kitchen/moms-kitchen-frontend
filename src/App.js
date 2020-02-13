@@ -1,15 +1,21 @@
 import React from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import './App.css';
+import AlmuerzosComponent from './components/Almuerzos/AlmuerzosComponent';
 import MyHeader from './components/MyHeader';
 import MyFooter from './components/MyFooter'
 import MySideBar from './components/MySideBar';
 import BillingForm from './components/BillingForm';
 
+
+
 function App() {
+  const showOrderAlmuerzo = () =>(
+      <AlmuerzosComponent></AlmuerzosComponent>
+    );
   return (
     <div className="App">
-      <Container>
+      {/* <Container>
         <Row>
           <MyHeader></MyHeader>                    
         </Row>
@@ -20,11 +26,11 @@ function App() {
         <Row>
           <MyFooter></MyFooter>
         </Row>
-      </Container>
+      </Container> */}
 
       <AlmuerzosComponent
         almuerzos={[{"nombre":"a"},{"nombre":"b"}]}
-        /* showOrderAlmuerzo={this.showOrderAlmuerzo} */
+        showOrderAlmuerzo={showOrderAlmuerzo}
       
       />      
     </div>

@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import AlmuerzosItemComponent from './AlmuerzosItemComponent';
+import AlmuerzosItemComponent from './AlmuerzosItemComponent'; 
+import './ListAlmuerzos.css'
 
 const AlmuerzosComponent = ({ almuerzos, showOrderAlmuerzo }) => {
     console.log(almuerzos);
     return (
-        
-        <div className = "almuerzos-list sidebarContent">
+        <React.Fragment>
+            <div className = "almuerzos-list">
             {
                 
                 almuerzos ? 
@@ -22,6 +23,7 @@ const AlmuerzosComponent = ({ almuerzos, showOrderAlmuerzo }) => {
             
             
         </div>
+        </React.Fragment>  
     );
 };
 
