@@ -6,7 +6,7 @@ class MyHeader extends React.Component{
     render(){
         return(
             <div className="myheaderClass generic">
-                holi
+                Moms kitchen custom header TODO 
             </div>
         )
     }    

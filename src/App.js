@@ -4,6 +4,7 @@ import './App.css';
 import MyHeader from './components/MyHeader';
 import MyFooter from './components/MyFooter'
 import MySideBar from './components/MySideBar';
+import BillingForm from './components/BillingForm';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         </Row>
         <Row>
           <MySideBar></MySideBar>
+          <BillingForm></BillingForm>
         </Row>
         <Row>
           <MyFooter></MyFooter>

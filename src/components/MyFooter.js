@@ -5,7 +5,7 @@ class MyFooter extends React.Component{
     render(){
         return(
             <div className="myFooterClass generic">
-                Este es el footer XD
+                copyright, redes y about us TODO
             </div>
         )
     }

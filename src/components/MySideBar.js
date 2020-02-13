@@ -5,7 +5,8 @@ class MySideBar extends React.Component{
     render(){
         return(
             <div className="mySideBarClass generic">
-                side bar
+                side <br></br> bar <br></br>
+                TODO
             </div>
         )
     }
