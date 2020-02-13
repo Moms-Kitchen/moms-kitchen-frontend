@@ -1,0 +1,13 @@
+.myheaderClass{
+    height: 10vh;
+    width: 100vw;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background-color: darkgray;
+}
+
+.generic{
+    margin: 0;
+    padding: 0;
+}

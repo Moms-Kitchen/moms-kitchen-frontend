@@ -1,0 +1,16 @@
+.billingFormClass{
+    position: absolute;
+    top: 20vh;
+    left: 25vw;
+    height: 83vh;
+    width: 50vw;
+    background-color: darkseagreen;
+    border-radius: 5px;
+    border: 1px solid black;
+    margin: 0 0 10% 0;
+}
+
+.billingGeneric{
+    padding: 5% 5% 5% 5%;
+    margin: 0;
+}
