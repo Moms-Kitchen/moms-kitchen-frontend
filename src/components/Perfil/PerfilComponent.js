@@ -13,4 +13,4 @@ const PerfilComponent = () => {
     );
 };
 
-export default AlmuerzosComponent;
+export default PerfilComponent;
