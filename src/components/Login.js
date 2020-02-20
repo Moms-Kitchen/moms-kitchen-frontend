@@ -18,7 +18,7 @@ class Login extends Component {
     render() {           
         return (   
             <React.Fragment>   
-            {this.state.authenticated && <Redirect to='/billing'></Redirect>}           
+            {this.state.authenticated && <Redirect to='/orders'></Redirect>}           
             <div className="loginClass generic">
                 <form>
                     <span>Ain't working yet, just click the login button</span>

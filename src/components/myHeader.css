@@ -5,6 +5,9 @@
     top: 0px;
     left: 0px;
     background-color: darkgray;
+    text-align: center;
+    background-image: url(../img/baner.png) ;
+    background-size: contain;
 }
 
 .generic{
