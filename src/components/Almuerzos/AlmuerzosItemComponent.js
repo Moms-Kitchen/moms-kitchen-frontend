@@ -6,11 +6,15 @@ import Typography from '@material-ui/core/Typography'
 const AlmuerzosItemComponent = ({ almuerzo, showOrderAlmuerzo}) => {
     return (
         <div className = "almuerzos-item text-center">
-            <Typography variant="h2">{almuerzo.nombre}</Typography>
+            <div>
+                <Typography variant="h2">{almuerzo.nombre}</Typography>
+                <Button onClick = { () => { showOrderAlmuerzo(almuerzo) } } >
+                Ordenar !
+                </Button>
+            </div>
+            
             <p>{almuerzo.descripcion}</p>
-            <Button onClick = { () => { showOrderAlmuerzo(almuerzo) } } >
-            Ordenar !
-            </Button>
+            
         </div>
     );
 };

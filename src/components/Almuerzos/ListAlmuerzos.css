@@ -1,8 +1,15 @@
 .almuerzos-list{
     display: flex;
     flex-direction: column;
+    width: 50%;
 }
+
 
 .almuerzos-item{
     display: flex;
+    flex-direction: column;
+}
+.almuerzos-item div{
+    display: flex;
+    justify-content: space-between;
 }

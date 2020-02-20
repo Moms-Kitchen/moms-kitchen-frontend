@@ -1,16 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Avatar, Typography } from '@material-ui/core';
+import { Avatar, Typography, Card } from '@material-ui/core';
 import { Rating } from '@material-ui/lab';
+import './PerfilComponent.css'
 
 
-const PerfilComponent = () => {
+const PerfilComponent = ({ usuario }) => {
     return (
         <React.Fragment>
-            <Avatar></Avatar>
-            <Typography>TEST</Typography>
-            <Rating></Rating>
-        </React.Fragment>  
+            <Card className="perfil">
+                {/* <div> */}
+                    <div>
+                        <Avatar></Avatar>
+                        <Typography>{usuario.nombre}</Typography>
+                    </div>
+                    <Rating></Rating>
+                {/* </div> */}
+                {/* <div>
+                    <Typography>Especialidades:</Typography>
+                </div> */}
+
+            </Card>
+
+
+        </React.Fragment>
     );
 };
 
