@@ -6,13 +6,12 @@ import MyHeader from './components/MyHeader';
 import MyFooter from './components/MyFooter'
 import MySideBar from './components/MySideBar';
 import BillingForm from './components/BillingForm';
+import { OfferedMenus } from './views/OfferedMenus';
 
 
 
 function App() {
-  const showOrderAlmuerzo = () =>(
-      <AlmuerzosComponent></AlmuerzosComponent>
-    );
+  
   return (
     <div className="App">
       {/* <Container>
@@ -27,12 +26,7 @@ function App() {
           <MyFooter></MyFooter>
         </Row>
       </Container> */}
-
-      <AlmuerzosComponent
-        almuerzos={[{"nombre":"a"},{"nombre":"b"}]}
-        showOrderAlmuerzo={showOrderAlmuerzo}
-      
-      />      
+      <OfferedMenus></OfferedMenus>     
     </div>
   );
 }
