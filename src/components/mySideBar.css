@@ -8,5 +8,14 @@
     height: 100vh;
     width: 3vw;
     left: 0;
+    top: 0;
     background-color: darkgray;
+}
+
+.SDGeneric{
+    width: 100%;
+    height: 50px;
+    max-height: 80px;
+    position: relative;
+    border: 1px solid black;
 }

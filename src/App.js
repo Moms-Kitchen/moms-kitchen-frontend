@@ -1,27 +1,21 @@
-import React from 'react';
-import { Container, Row, Col } from 'reactstrap';
-import './App.css';
-import MyHeader from './components/MyHeader';
-import MyFooter from './components/MyFooter'
-import MySideBar from './components/MySideBar';
-import BillingForm from './components/BillingForm';
+import React from 'react'
+import './App.css'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import Login from './components/Login'
+import Billing from './components/Billing'
+import Orders from './components/Orders'
+
 
 function App() {
   return (
-    <div className="App">
-      <Container>
-        <Row>
-          <MyHeader></MyHeader>                    
-        </Row>
-        <Row>
-          <MySideBar></MySideBar>
-          <BillingForm></BillingForm>
-        </Row>
-        <Row>
-          <MyFooter></MyFooter>
-        </Row>
-      </Container>      
-    </div>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path='/' component={Login}></Route>
+        <Route exact path='/login' component={Login}></Route>
+        <Route exact path='/billing' component={Billing}></Route>
+        <Route exact path='/orders' component={Orders}></Route>
+      </Switch>
+    </BrowserRouter>
   );
 }
 
