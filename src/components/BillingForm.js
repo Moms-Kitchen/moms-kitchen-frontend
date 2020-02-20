@@ -1,6 +1,6 @@
 import React from 'react';
 import './billingForm.css';
-import { Form, FormGroup, Label, Input, FormText, Button } from 'reactstrap';
+import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import BillingDate from './BillingDate'
 
 

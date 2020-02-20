@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Container, Row, Col } from 'reactstrap';
-import MyHeader from './components/MyHeader';
-import MyFooter from './components/MyFooter'
-import MySideBar from './components/MySideBar';
-import BillingForm from './components/BillingForm';
+import { Container, Row } from 'reactstrap';
+import MyHeader from './MyHeader';
+import MyFooter from './MyFooter';
+import MySideBar from './MySideBar';
+import BillingForm from './BillingForm';
 
 class Billing extends Component {
     render() {
