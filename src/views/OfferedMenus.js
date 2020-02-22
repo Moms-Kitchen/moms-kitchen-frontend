@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import AlmuerzosComponent from '../components/Almuerzos/AlmuerzosComponent';
 import PerfilComponent from '../components/Perfil/PerfilComponent';
 import './offeredMenus.css';
+import  MapComponent from '../components/Map/MapComponent';
 
 
 
@@ -17,6 +18,7 @@ export class OfferedMenus extends React.Component{
             <React.Fragment>
                 
                 <div id="detallesCocineroActual">
+                <MapComponent id="googleMap"/>
                 <PerfilComponent
                     usuario={{"nombre":"Pepito Perez"}}
                 />
