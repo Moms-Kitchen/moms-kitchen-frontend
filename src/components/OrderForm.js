@@ -3,24 +3,7 @@ import { useTrail, animated } from "react-spring";
 import './orderForm.css'
 
 
-const OrderForm = () => {
-
-    const GridItem = ({ title, price }) => (
-        <div className="grid-item">
-            <h3>{title}</h3>
-            <p>RS. {price}</p>
-        </div>
-    );
-
-    const OrderForm = () => {
-        return (
-            <div className="container">
-                {PRODUCTS.map(p => (
-                    <GridItem title={p.title} price={p.price} />
-                ))}
-            </div>
-        );
-    };
+const OrderForm = () => {   
 
     const PRODUCTS = [
         {
@@ -72,6 +55,90 @@ const OrderForm = () => {
             id: 10,
             title: "Orden 10",
             price: 13000
+        },{
+            id: 9,
+            title: "Orden 9",
+            price: 12000
+        },{
+            id: 9,
+            title: "Orden 9",
+            price: 12000
+        },{
+            id: 9,
+            title: "Orden 9",
+            price: 12000
+        },{
+            id: 9,
+            title: "Orden 9",
+            price: 12000
+        },{
+            id: 9,
+            title: "Orden 9",
+            price: 12000
+        },{
+            id: 9,
+            title: "Orden 9",
+            price: 12000
+        },{
+            id: 9,
+            title: "Orden 9",
+            price: 12000
+        },{
+            id: 9,
+            title: "Orden 9",
+            price: 12000
+        },{
+            id: 9,
+            title: "Orden 9",
+            price: 12000
+        },{
+            id: 9,
+            title: "Orden 9",
+            price: 12000
+        },{
+            id: 9,
+            title: "Orden 9",
+            price: 12000
+        },{
+            id: 9,
+            title: "Orden 9",
+            price: 12000
+        },{
+            id: 9,
+            title: "Orden 9",
+            price: 12000
+        },{
+            id: 9,
+            title: "Orden 9",
+            price: 12000
+        },{
+            id: 9,
+            title: "Orden 9",
+            price: 12000
+        },{
+            id: 9,
+            title: "Orden 9",
+            price: 12000
+        },{
+            id: 9,
+            title: "Orden 9",
+            price: 12000
+        },{
+            id: 9,
+            title: "Orden 9",
+            price: 12000
+        },{
+            id: 9,
+            title: "Orden 9",
+            price: 12000
+        },{
+            id: 9,
+            title: "Orden 9",
+            price: 12000
+        },{
+            id: 9,
+            title: "Orden 9",
+            price: 12000
         },{
             id: 9,
             title: "Orden 9",

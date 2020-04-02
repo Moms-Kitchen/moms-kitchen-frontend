@@ -1,33 +1,82 @@
 import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import './login.css';
+import swal from 'sweetalert';
+import Cookies from 'js-cookie';
 
 class Login extends Component {
 
-    state = {
-        authenticated: false,
+    constructor(props) {
+        super(props);
+        this.state = {
+            authenticated: false,
+            email: "",
+            password: ""
+        }
+        this.handlePasswordChange = this.handlePasswordChange.bind(this);
+        this.handleUsernameChange = this.handleUsernameChange.bind(this);
+        this.checkUserCredentials = this.checkUserCredentials.bind(this);
+        this.formPreventDefault = this.formPreventDefault.bind(this);
     }
 
-    checkUserCredentials = () => {
-        //Most autheticate the user credential before changing the state TODO.
-        this.setState({
-            authenticated: true
-        })
+
+
+    handleUsernameChange(event) {
+        this.setState({ email: event.target.value });
     }
 
-    render() {           
-        return (   
-            <React.Fragment>   
-            {this.state.authenticated && <Redirect to='/orders'></Redirect>}           
-            <div className="loginClass generic">
-                <form>
-                    <span>Ain't working yet, just click the login button</span>
-                    <input className="loginUsernameClass" placeholder="username" type="text" disabled></input>
-                    <input className="loginPasswordClass" placeholder="password" type="password" disabled></input>
-                    <button className="loginButtonClass" onClick={this.checkUserCredentials}>Login</button>
-                </form>
+    handlePasswordChange(event) {
+        this.setState({ password: event.target.value });
+    }
+
+    async checkUserCredentials() {
+        if (this.state.email === "" && this.state.password === "") {
+            swal("Empty field!", "Please, fill all the fields", "error");
+        } else {
+            if (this.state.email.includes('@')) {
+                var url = 'http://localhost:8080/session/' + this.state.email + '/' + this.state.password;
+                fetch(url, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                    .then(response => response.json())
+                    .then(async data => {
+                        console.log(data);
+                        if (data.email != null) {
+                            await this.setCookies(data)
+                            this.setState({ authenticated: true })                            
+                        } else {
+                            swal("Login failed!", "Wrong email or password", "error");
+                        }
+                    })
+            } else {
+                swal("Not an email!", "Please, type a correct email", "error");
+            }
+        }
+    }
+
+    async setCookies(data){
+        Cookies.set('cook', data)
+    }
+
+    formPreventDefault(e){
+        e.preventDefault();
+    }
+
+    render() {
+        return (
+            <div>
+                {this.state.authenticated && <Redirect to='/Kitchen'></Redirect>}
+                <div className="loginClass generic">
+                    <form onSubmit={this.formPreventDefault}>
+                        <span>Ain't working yet, just click the login button</span>
+                        <input className="loginUsernameClass" placeholder="Email" required type="email" value={this.state.email} onChange={this.handleUsernameChange}></input>
+                        <input className="loginPasswordClass" placeholder="Password" required type="password" value={this.state.password} onChange={this.handlePasswordChange}></input>
+                        <button className="loginButtonClass" onClick={this.checkUserCredentials}>Login</button>
+                    </form>
+                </div>
             </div>
-            </React.Fragment>
         );
     }
 }

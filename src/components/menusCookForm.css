@@ -1,0 +1,108 @@
+.menuCookContainer {
+    display: grid;
+    grid-gap: 16px;
+    grid-template-columns: repeat(auto-fill, 100%);
+    border: 1px solid black;
+    padding: 5%;
+    max-height: auto;
+    margin-bottom: 50px;
+}
+
+.menuMealsCookContainer{
+    display: grid;
+    grid-gap: 6px;
+    grid-template-columns: repeat(auto-fill, 30%);
+}
+
+.menuNPDform{
+    height: auto;
+    margin: 50px;
+}
+
+.mealCont{
+    float: left;
+}
+
+.menuCont{
+    border: none;
+    border-bottom: 1px solid black;
+    margin-bottom: 5%;
+}
+
+.mealContlabel{
+    margin: 5px;
+    padding: 3px 3px 0px 3px;
+    border: none;
+    border-bottom: 1px solid black;
+}
+
+.grid-item {
+    opacity: 0.2;
+    border: 1px solid #4099ff;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background: #f5f5f5;
+    color: #fff;
+}
+
+.menusCookClass {
+    position: absolute;
+    top: 15vh;
+    left: 15vw;
+    height: 75vh;
+    width: 75vw;
+}
+
+.noMenusYetClass {
+    position: relative;
+    height: 20vh;
+    width: 100%;
+}
+
+.addmenuinputgeneric {
+    display: inline-block;
+    margin: 5px;
+    width: 33%;
+    float: left;
+}
+
+.niceeffect{
+    resize: none;
+}
+
+.addmenulabelgeneric{
+    display: inline-block;
+    margin: 5px;
+    float: left;
+    clear: left;
+    width: 33%;
+    text-align: right;
+}
+.amlgBottom{
+    margin-bottom: 10%;
+}
+
+.DMmealRemove{
+    float: right;
+}
+
+.DMgeneric{
+    margin: 2px;
+}
+
+.DMdescription{
+    width: 100%;
+    resize: vertical;
+
+}
+
+.activateMenuBtn{
+    float: right;
+    background-color: brown;
+    margin-right: 5%;
+    margin-bottom: 3%;
+    border: none;
+    border-radius: 6px;
+    width: 30%;
+    height: 5vh;
+}
