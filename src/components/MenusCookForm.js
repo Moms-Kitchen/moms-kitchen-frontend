@@ -89,28 +89,29 @@ export default class MenusCookForm extends Component {
                 },
                 body: JSON.stringify(this.menutosend)
             })
-                .then(response => {
-                    if (response.ok) {
+                .then(response => response.json()).then(pkg => {
+                    if (pkg) {
                         swal(
                             'Successfully created!',
                             'You menu have been registered!',
                             'success'
                         )
+                        this.sendMessage("check");
                     } else {
                         swal(
                             'Sorry!',
                             'Someting went wrong, try again!',
                             'error')
                     }
-                })
+                }) 
         } else {
             swal("Empty field!", "Only the descrition is optional", "error");
         }
+
     }
 
     async addMenu(){
-        await this.createNewMenu();
-        this.sendMessage("check");
+        this.createNewMenu();        
     }
 
     showMeals() {
@@ -119,7 +120,7 @@ export default class MenusCookForm extends Component {
 
     sendMessage = (msg) => {
         console.log("SOCKET:sending message... ")
-        this.clientRef.sendMessage('/app/createMenu.{Menu}', msg);
+        this.clientRef.sendMessage('/app/createMenu', msg);
       }
 
     render() {
@@ -131,6 +132,7 @@ export default class MenusCookForm extends Component {
                 onConnect={console.log("Socket Connected!")}
                 onDisconnect={console.log("Socket Disconnected!")}
                 ref={ (client) => { this.clientRef = client }}
+                debug = { true }
                 >
                 </SockJsClient>
                 <div className="addNewMenuFormClass" >
@@ -178,7 +180,7 @@ export default class MenusCookForm extends Component {
                                     <h6>Price</h6><br></br>
                                     <label>{menu.price}</label>
                                     <div className="menuMealsCookContainer">
-                                        {menu.meals.map((meal) => {
+                                        {menu.meals.map((meal,index) => {
                                             return (
                                                 <div key={index} className="mealCont">
                                                     <div><label className="mealContlabel"><h6>Name:</h6></label>{meal.name}</div>

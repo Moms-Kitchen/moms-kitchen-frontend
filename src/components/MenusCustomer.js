@@ -36,8 +36,10 @@ export default class MenusCustomer extends Component {
                 <SockJsClient url={'http://localhost:8080/stompendpoint'}
                     topics={["/topic/Menus"]}
                     onMessage={(msg) => {
-                        console.log("socket msg:" + msg);
+                        console.log("socket msg:" + msg.length);
+                        this.setState({menus: []})
                         this.setState({ menus: [...this.state.menus, ...msg] })
+                        console.log(this.state.menus)
                     }}
                     onConnect={console.log("Socket Connected!")}
                     onDisconnect={console.log("Socket Disconnected!")}
@@ -54,7 +56,7 @@ export default class MenusCustomer extends Component {
                                     <h6>Price</h6><br></br>
                                     <label>{menu.price}</label>
                                     <div className="menuMealsCookContainer">
-                                        {menu.meals.map((meal) => {
+                                        {menu.meals.map((meal,index) => {
                                             return (
                                                 <div key={index} className="mealCont">
                                                     <div><label className="mealContlabel"><h6>Name:</h6></label>{meal.name}</div>
