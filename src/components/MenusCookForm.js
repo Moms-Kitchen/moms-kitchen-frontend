@@ -1,22 +1,25 @@
 import React, { Component } from 'react'
+import SockJsClient from 'react-stomp'
 import { useTrail, animated } from "react-spring"
+import MenuMealForm from './MenuMealForm'
 import "./menusCookForm.css"
 import Cookies from 'js-cookie'
-import swal from 'sweetalert';
+import swal from 'sweetalert'
 
 export default class MenusCookForm extends Component {
 
     state = {
         menus: [],
         meals: [],
-        //menutosend: { id: 15, chef: Cookies.getJSON('cook'), meals: this.state.meals, price: 0, description: ""},
-             
+        mealsbymatch: [],
     }
+
+    menutosend = { id: 15, chef: Cookies.getJSON('cook'), meals: this.state.meals, price: 0, description: "" };
 
     componentDidMount() {
         const cook = Cookies.getJSON('cook');
         console.log(cook.id);
-        var url = 'https://momskitchenieti.herokuapp.com/menus/chef/' + cook.id;
+        var url = 'http://localhost:8080/menus/chef/' + cook.id;
         fetch(url, {
             headers: {
                 'Content-Type': 'application/json'
@@ -27,6 +30,7 @@ export default class MenusCookForm extends Component {
                 console.log(pkg);
                 this.setState({ menus: [...this.state.menus, ...pkg] })
                 console.log(this.state.menus);
+                
             })
             .catch(err => {
                 console.log(err);
@@ -34,83 +38,106 @@ export default class MenusCookForm extends Component {
     }
 
     addMeal() {
-        this.setState({ meals: [...this.state.meals, { name: "", description: "", price: "" }] });
+        this.setState({ meals: [...this.state.meals, {id: "", name: "", description: "", price: "" }] });
     }
 
 
-    handleMenuPriceChange(e){
-
+    handleMenuPriceChange(e) {
+        this.menutosend.price = e.target.value;
+        this.setState({ menutosend: this.state.menutosend });
     }
 
-    handleMenuDescriptionChange(e){
-
+    handleMenuDescriptionChange(e) {
+        this.menutosend.description = e.target.value;
+        this.setState({ menutosend: this.state.menutosend });
     }
 
-    handleMenuNameChange(e){
-
+    handleMealIdChange = (id,index) => {
+        this.state.meals[index].id = id;
+        this.setState({ meals: this.state.meals });
     }
 
-    handleMealNameChange(e, index) {
-        this.state.meals[index].name = e.target.value;
-        this.setState({ meals: this.state.meals })
+    handleMealNameChange = (name, index) => {
+
+        this.state.meals[index].name = name;
+        this.setState({ meals: this.state.meals });
     }
 
-    handleMealPriceChange(e, index) {
+    handleMealPriceChange = (e, index) => {
         this.state.meals[index].price = e.target.value;
-        this.setState({ meals: this.state.meals })
+        this.setState({ meals: this.state.meals });
     }
 
-    handleMealDescriptionChange(e, index) {
+    handleMealDescriptionChange = (e, index) => {
         this.state.meals[index].description = e.target.value;
-        this.setState({ meals: this.state.meals })
+        this.setState({ meals: this.state.meals });
     }
 
-    handleRemove(index) {
+    handleRemove = (index) => {
         this.state.meals.splice(index, 1);
-        this.setState({ meals: this.state.meals })
+        this.setState({ meals: this.state.meals });
     }
 
-    // createNewMenu(){
-    //     if(this.state.menutosend.id !== "" && this.state.menutosend.price !== 0 && this.state.menutosend.meals.length > 0){
-    //         fetch('https://momskitchenieti.herokuapp.com/menus/createMenu', {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json'
-    //             },
-    //             body: JSON.stringify(this.state.menutosend)
-    //         })
-    //             .then(response => {
-    //                 if (response.ok) {
-    //                     swal.fire(
-    //                         'Successfully created!',
-    //                         'You menu have been registered!',
-    //                         'success'
-    //                     )
-    //                 } else {
-    //                     swal.fire(
-    //                         'Sorry!',
-    //                         'Someting went wrong, try again!',
-    //                         'error')
-    //                 }
-    //             })
-    //     } else {
-    //         swal("Empty field!", "Only the descritionis optional", "error");
-    //     }
-    // }
+    async createNewMenu() {
+        this.menutosend.meals = this.state.meals;
+        console.log(this.menutosend)
+        if (this.menutosend.id !== "" && this.menutosend.price !== 0 && this.menutosend.meals.length > 0) {
+            fetch('http://localhost:8080/menus/createMenu', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(this.menutosend)
+            })
+                .then(response => {
+                    if (response.ok) {
+                        swal(
+                            'Successfully created!',
+                            'You menu have been registered!',
+                            'success'
+                        )
+                    } else {
+                        swal(
+                            'Sorry!',
+                            'Someting went wrong, try again!',
+                            'error')
+                    }
+                })
+        } else {
+            swal("Empty field!", "Only the descrition is optional", "error");
+        }
+    }
+
+    async addMenu(){
+        await this.createNewMenu();
+        this.sendMessage("check");
+    }
 
     showMeals() {
         console.log(this.state.meals);
     }
 
+    sendMessage = (msg) => {
+        console.log("SOCKET:sending message... ")
+        this.clientRef.sendMessage('/app/createMenu.{Menu}', msg);
+      }
 
     render() {
         return (
             <div className="menusCookClass" >
+                <SockJsClient url={'http://localhost:8080/stompendpoint'}
+                topics={["/topic/Menus"]}
+                onMessage={(msg) => {console.log("socket msg:" + msg)}}
+                onConnect={console.log("Socket Connected!")}
+                onDisconnect={console.log("Socket Disconnected!")}
+                ref={ (client) => { this.clientRef = client }}
+                >
+                </SockJsClient>
                 <div className="addNewMenuFormClass" >
                     <h2> Add new menu </h2>
                     <div className="menuNPDform">
                         <label className="addmenulabelgeneric">Cost: </label><input className="ANMcostClass addmenuinputgeneric niceeffect" onChange={(e) => this.handleMenuPriceChange(e)} placeholder="Cost" ></input><br></br>
-                        <label className="addmenulabelgeneric amlgBottom">Description: </label><textarea className="ANMcostClass addmenuinputgeneric niceeffect" onChange={(e) => this.handleMealDescriptionChange(e)} placeholder="description" ></textarea><br></br>
+                        <label className="addmenulabelgeneric amlgBottom">Description: </label><textarea className="ANMcostClass addmenuinputgeneric niceeffect" onChange={(e) => this.handleMenuDescriptionChange(e)} placeholder="Description - OPTIONAL" ></textarea><br></br>
                     </div>
                     <br></br>
                     <br></br>
@@ -121,16 +148,20 @@ export default class MenusCookForm extends Component {
                     {this.state.meals.map((meal, index) => {
                         return (
                             <div key={index}>
-                                <input className="DMgeneric DMname niceeffect" placeholder="Name of the meal" onChange={(e) => this.handleMealNameChange(e, index)} ></input><button className="DMgeneric DMmealRemove" onClick={(e) => this.handleRemove(e, index)}>Remove meal</button><br></br>
-                                <input className="DMgeneric DMprice niceeffect" placeholder="Price of the meal" onChange={(e) => this.handleMealPriceChange(e, index)}></input><br></br>
-                                <textarea className="DMgeneric DMdescription niceeffect" placeholder="A description is optional" onChange={(e) => this.handleMealDescriptionChange(e, index)}></textarea>
-                                <hr></hr>
+                                <MenuMealForm parentMealId={this.handleMealIdChange}
+                                    parentMealName={this.handleMealNameChange}
+                                    parentMealPrice={this.handleMealPriceChange}
+                                    parentMealDescription={this.handleMealDescriptionChange}
+                                    parentRemoveMeal={this.handleRemove}
+                                    meals={this.state.mealsbymatch}
+                                    index={index}>
+                                </MenuMealForm>
                             </div>
                         )
                     })}
                     <button onClick={(e) => this.addMeal(e)}> Add meal </button>
                     <hr></hr>
-                    <button onClick={(e) => this.showMeals(e)}> Add menu </button>
+                    <button onClick={(e) => this.addMenu(e)}> Add menu </button>
                     <hr></hr>
                     <br></br>
                     <h2>Your menus</h2>
@@ -158,7 +189,6 @@ export default class MenusCookForm extends Component {
                                         })}
                                     </div><br></br>
                                     <button className="activateMenuBtn">Post menu</button>
-
                                 </div>
                             )
                         })

@@ -6,7 +6,9 @@ class MySideBar extends React.Component {
 
     state = {
         stretched: false,
-        width: '3vw'
+        width: '3vw',
+        toKitchen: false,
+        toMenu: false,
     }
 
     sideBarClickedHandler = () => {
@@ -23,26 +25,30 @@ class MySideBar extends React.Component {
         }
     }
 
-    
-    
+    toBilling(e) {
+        console.log("funca")
+        return <Redirect to='/Menu'></Redirect>
+    }
 
-    render() {      
+
+
+    render() {
         return (
             <div className="mySideBarClass generic" onClick={this.sideBarClickedHandler} style={{ width: this.state.width }}>
-                <div className="SDBillingClass SDGeneric" onClick={this.toBilling}>
+                {}
+                <div className="SDBillingClass SDGeneric" onClick={(e) => this.toBilling(e)}>
                     B
-            </div>
+                </div>
                 <div className="SDOrdersClass SDGeneric">
                     O
-            </div>
+                </div>
                 <div className="SDKitchenClass SDGeneric">
                     K
-            </div>
+                </div>
                 <div className="SDLogoutClass SDGeneric">
                     LO
+                </div>
             </div>
-            </div>
-            
         )
     }
 }
