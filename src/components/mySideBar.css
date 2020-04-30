@@ -19,4 +19,12 @@
     max-height: 80px;
     position: relative;
     border: 1px solid black;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    background-color: chocolate;
+    z-index: 2;
+}
+
+.SDGeneric :hover{
+    background-color: bisque;
 }

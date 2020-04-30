@@ -9,6 +9,7 @@ class MySideBar extends React.Component {
         width: '3vw',
         toKitchen: false,
         toMenu: false,
+        toBilling: false,
     }
 
     sideBarClickedHandler = () => {
@@ -25,9 +26,22 @@ class MySideBar extends React.Component {
         }
     }
 
-    toBilling(e) {
-        console.log("funca")
-        return <Redirect to='/Menu'></Redirect>
+    toBilling = (e) => {
+        this.setState({
+            toBilling: true,
+        })
+    }
+
+    toKitchen = (e) => {
+        this.setState({
+            toKitchen: true,
+        })
+    }
+
+    toMenu = (e) => {
+        this.setState({
+            toMenu: true,
+        })
     }
 
 
@@ -35,17 +49,19 @@ class MySideBar extends React.Component {
     render() {
         return (
             <div className="mySideBarClass generic" onClick={this.sideBarClickedHandler} style={{ width: this.state.width }}>
-                {}
+                {this.state.toKitchen && <Redirect to='/Kitchen'></Redirect>}
+                {this.state.toMenu && <Redirect to='/Menu'></Redirect>}
+                {this.state.toBilling && <Redirect to='/Billing'></Redirect>}
                 <div className="SDBillingClass SDGeneric" onClick={(e) => this.toBilling(e)}>
                     B
                 </div>
-                <div className="SDOrdersClass SDGeneric">
-                    O
+                <div className="SDOrdersClass SDGeneric" onClick={(e) => this.toMenu(e)}>
+                    M
                 </div>
-                <div className="SDKitchenClass SDGeneric">
+                <div className="SDKitchenClass SDGeneric" onClick={(e) => this.toKitchen(e)}>
                     K
                 </div>
-                <div className="SDLogoutClass SDGeneric">
+                <div className="SDLogoutClass SDGeneric" >
                     LO
                 </div>
             </div>
