@@ -10,6 +10,7 @@ class MySideBar extends React.Component {
         toKitchen: false,
         toMenu: false,
         toBilling: false,
+        toOrders: false,
     }
 
     sideBarClickedHandler = () => {
@@ -44,6 +45,12 @@ class MySideBar extends React.Component {
         })
     }
 
+    toOrders = (e) => {
+        this.setState({
+            toOrders: true,
+        })
+    }
+
 
 
     render() {
@@ -52,11 +59,15 @@ class MySideBar extends React.Component {
                 {this.state.toKitchen && <Redirect to='/Kitchen'></Redirect>}
                 {this.state.toMenu && <Redirect to='/Menu'></Redirect>}
                 {this.state.toBilling && <Redirect to='/Billing'></Redirect>}
+                {this.state.toOrders && <Redirect to='/orders'></Redirect>}
                 <div className="SDBillingClass SDGeneric" onClick={(e) => this.toBilling(e)}>
                     B
                 </div>
                 <div className="SDOrdersClass SDGeneric" onClick={(e) => this.toMenu(e)}>
                     M
+                </div>
+                <div className="SDOrdersClass SDGeneric" onClick={(e) => this.toOrders(e)}>
+                    O
                 </div>
                 <div className="SDKitchenClass SDGeneric" onClick={(e) => this.toKitchen(e)}>
                     K

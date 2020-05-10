@@ -6,7 +6,7 @@ class BillingDate extends React.Component{
         super();
 
         var today = new Date(),
-            date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+            date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate() + '-' + today.getHours()+ ':' + today.getMinutes();
 
         this.state = {
             date: date
@@ -15,7 +15,7 @@ class BillingDate extends React.Component{
 
     render(){
         return(
-            <Input type="text" placeholder={"Date: " + this.state.date} disabled></Input>
+            <input type="text" placeholder={"Date: " + this.state.date} disabled></input>
         )
     }
 }

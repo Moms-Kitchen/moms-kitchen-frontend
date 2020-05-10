@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import SockJsClient from 'react-stomp'
+import Cookies from 'js-cookie'
+import swal from 'sweetalert'
 import './menusCustomer.css'
 
 export default class MenusCustomer extends Component {
@@ -25,10 +27,42 @@ export default class MenusCustomer extends Component {
             .catch(err => {
                 console.log(err);
             });
+    }    
+
+    async createNewOrder(e, index) {
+        var ordertosend = {
+            id: 0, 
+            totalPrice: this.state.menus[index].price,
+            menus: [this.state.menus[index]], 
+            orderDate: new Date(), 
+            description: "new order for " + Cookies.getJSON('cook').name,
+            Customer: Cookies.getJSON('cook'),
+            Chef: this.state.menus[index].chef,
+            pendingPayment: true,
+        }
+        console.log(ordertosend);
+        fetch('http://localhost:8080/orders/createOrder', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(ordertosend)
+        })
+            .then(response => response.json()).then(pkg => {
+                if (pkg) {
+                    swal(
+                        'Successfully added!',
+                        'Menu added to your cart!',
+                        'success'
+                    )                    
+                } else {
+                    swal(
+                        'Sorry!',
+                        'Someting went wrong, try again!',
+                        'error')
+                }
+            })
     }
-
-
-
 
     render() {
         return (
@@ -37,7 +71,7 @@ export default class MenusCustomer extends Component {
                     topics={["/topic/Menus"]}
                     onMessage={(msg) => {
                         console.log("socket msg:" + msg.length);
-                        this.setState({menus: []})
+                        this.setState({ menus: [] })
                         this.setState({ menus: [...this.state.menus, ...msg] })
                         console.log(this.state.menus)
                     }}
@@ -51,12 +85,14 @@ export default class MenusCustomer extends Component {
                         this.state.menus.map((menu, index) => {
                             return (
                                 <div key={index} className="menuContCustomer">
+                                    <h6>Chef</h6><br></br>
+                                    <label>{menu.chef.name}</label>
                                     <h6>Description</h6><br></br>
                                     <label defaultValue="No description">{menu.description}</label>
                                     <h6>Price</h6><br></br>
                                     <label>{menu.price}</label>
                                     <div className="menuMealsCookContainer">
-                                        {menu.meals.map((meal,index) => {
+                                        {menu.meals.map((meal, index) => {
                                             return (
                                                 <div key={index} className="mealCont">
                                                     <div><label className="mealContlabel"><h6>Name:</h6></label>{meal.name}</div>
@@ -66,7 +102,7 @@ export default class MenusCustomer extends Component {
                                             )
                                         })}
                                     </div><br></br>
-                                    <button className="activateMenuBtn">Purchase</button>
+                                    <button className="activateMenuBtn" onClick={(e => this.createNewOrder(e,index))}>Purchase</button>
                                 </div>
                             )
                         })
