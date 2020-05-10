@@ -4,6 +4,11 @@ import './login.css';
 import swal from 'sweetalert';
 import Cookies from 'js-cookie';
 
+import { Button, Navbar, Nav, Form, FormControl} from 'react-bootstrap';
+
+
+import NavBarCharlaito from './NavBarCharlaito'
+
 class Login extends Component {
 
     constructor(props) {
@@ -65,9 +70,37 @@ class Login extends Component {
         e.preventDefault();
     }
 
+    vistaBotones(){
+        return(
+
+            <div>
+                <Button variant="primary">Primary</Button>{' '}
+                <Button variant="secondary">Secondary</Button>{' '}
+                <Button variant="success">Success</Button>{' '}
+                <Button variant="warning">Warning</Button>{' '}
+                <Button variant="danger">Danger</Button> <Button variant="info">Info</Button>{' '}
+                <Button variant="light">Light</Button> <Button variant="dark">Dark</Button>{' '}
+                <Button variant="link">Link</Button>
+            </div>
+        );
+    }
+
+    vistaBarritaMenu(){
+        return(
+            <div>
+            <NavBarCharlaito />
+
+            </div>
+        );
+
+    }
+
     render() {
         return (
             <div>
+                {this.vistaBarritaMenu()}
+                <NavBarCharlaito />
+
                 {this.state.authenticated && <Redirect to='/Kitchen'></Redirect>}
                 <div className="loginClass generic">
                     <form onSubmit={this.formPreventDefault}>
@@ -77,6 +110,8 @@ class Login extends Component {
                         <button className="loginButtonClass" onClick={this.checkUserCredentials}>Login</button>
                     </form>
                 </div>
+            {this.vistaBotones()}
+
             </div>
         );
     }
