@@ -7,7 +7,7 @@ import Cookies from 'js-cookie';
 import { Button, Navbar, Nav, Form, FormControl} from 'react-bootstrap';
 
 
-import NavBarCharlaito from './NavBarCharlaito'
+import NavBarCharlaito from './NavBar'
 
 class Login extends Component {
 

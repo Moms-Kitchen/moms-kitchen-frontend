@@ -1,10 +1,15 @@
-import React, { Component } from 'react'
-import SockJsClient from 'react-stomp'
-import { useTrail, animated } from "react-spring"
+import React, { Component, useState } from 'react';
+import { Container, Row, Col, Form, Button, CardDeck, Card, ListGroup, ListGroupItem } from 'react-bootstrap';
+import SockJsClient from 'react-stomp';
+import { useTrail, animated } from "react-spring";
+import NumberFormat from 'react-number-format';
+import Cookies from 'js-cookie';
+import swal from 'sweetalert';
+
+import PlateMenuImage from '../img/tools/plateMenu.jpg';
 import MenuMealForm from './MenuMealForm'
 import "./menusCookForm.css"
-import Cookies from 'js-cookie'
-import swal from 'sweetalert'
+
 
 export default class MenusCookForm extends Component {
 
@@ -12,9 +17,11 @@ export default class MenusCookForm extends Component {
         menus: [],
         meals: [],
         mealsbymatch: [],
+        validated: false,
+        validmeals: false,
     }
 
-    menutosend = { id: 15, chef: Cookies.getJSON('cook'), meals: this.state.meals, price: 0, description: "" };
+    menutosend = { id: 15, chef: Cookies.getJSON('cook'), meals: this.state.meals, price: 0, description: "", name: "" };
 
     componentDidMount() {
         const cook = Cookies.getJSON('cook');
@@ -30,7 +37,7 @@ export default class MenusCookForm extends Component {
                 console.log(pkg);
                 this.setState({ menus: [...this.state.menus, ...pkg] })
                 console.log(this.state.menus);
-                
+
             })
             .catch(err => {
                 console.log(err);
@@ -38,9 +45,13 @@ export default class MenusCookForm extends Component {
     }
 
     addMeal() {
-        this.setState({ meals: [...this.state.meals, {id: "", name: "", description: "", price: "" }] });
+        this.setState({ meals: [...this.state.meals, { id: "", name: "", description: "", price: "" }] });
     }
 
+    handleMenuNameChange(e) {
+        this.menutosend.name = e.target.value;
+        this.setState({ menutosend: this.state.menutosend });
+    }
 
     handleMenuPriceChange(e) {
         this.menutosend.price = e.target.value;
@@ -52,7 +63,7 @@ export default class MenusCookForm extends Component {
         this.setState({ menutosend: this.state.menutosend });
     }
 
-    handleMealIdChange = (id,index) => {
+    handleMealIdChange = (id, index) => {
         this.state.meals[index].id = id;
         this.setState({ meals: this.state.meals });
     }
@@ -78,10 +89,36 @@ export default class MenusCookForm extends Component {
         this.setState({ meals: this.state.meals });
     }
 
+    async validateMeals() {
+        var cont = 0;
+        this.state.meals.map((meal, index) => {
+            console.log("meal.name != '': " + (meal.name != ''));
+            console.log("meal.price != '': " + (meal.price != ''));
+            console.log("cont === this.state.meals.length: " + (cont === this.state.meals.length));
+            console.log("Name: " + meal.name + ", " + "Price: " + meal.price)
+
+            if (meal.name != '' && meal.price != '') {
+                cont += 1;
+                console.log("if 1");
+            }
+            if (cont === this.state.meals.length) {
+                console.log("if 2");
+                this.setState({
+                    validmeals: true,
+                })
+            }
+        })
+        console.log("Contador: " + cont);
+        console.log("Meald length: " + this.state.meals.length);
+
+    }
+
     async createNewMenu() {
         this.menutosend.meals = this.state.meals;
         console.log(this.menutosend)
-        if (this.menutosend.id !== "" && this.menutosend.price !== 0 && this.menutosend.meals.length > 0) {
+        await this.validateMeals();
+
+        if (this.menutosend.name !== "" && this.menutosend.id !== "" && this.menutosend.price !== 0 && this.menutosend.meals.length > 0 && this.menutosend.description != '' && this.state.validmeals) {
             fetch('http://localhost:8080/menus/createMenu', {
                 method: 'POST',
                 headers: {
@@ -92,26 +129,27 @@ export default class MenusCookForm extends Component {
                 .then(response => response.json()).then(pkg => {
                     if (pkg) {
                         swal(
-                            'Successfully created!',
+                            'Menú creado!',
                             'You menu have been registered!',
                             'success'
                         )
                         this.sendMessage("check");
+                        window.location.reload(false);
                     } else {
                         swal(
-                            'Sorry!',
-                            'Someting went wrong, try again!',
+                            'Error!',
+                            'Algo salió mal, intentalo de nuevo!',
                             'error')
                     }
-                }) 
+                })
         } else {
-            swal("Empty field!", "Only the descrition is optional", "error");
+            swal("Campos vacios!", "Solo la descripción de las comidas es opcional", "error");
         }
 
     }
 
-    async addMenu(){
-        this.createNewMenu();        
+    async addMenu() {
+        this.createNewMenu();
     }
 
     showMeals() {
@@ -121,82 +159,171 @@ export default class MenusCookForm extends Component {
     sendMessage = (msg) => {
         console.log("SOCKET:sending message... ")
         this.clientRef.sendMessage('/app/createMenu', msg);
-      }
+    }
+
+
+    handleSubmit = (event) => {
+        const form = event.currentTarget;
+        if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+        } else {
+            event.preventDefault();
+            this.setState({ validated: true });
+            this.addMenu();
+        }
+
+
+    }
+
 
     render() {
+
         return (
-            <div className="menusCookClass" >
+            <div className="menusCook" >
                 <SockJsClient url={'http://localhost:8080/stompendpoint'}
-                topics={["/topic/Menus"]}
-                onMessage={(msg) => {console.log("socket msg:" + msg)}}
-                onConnect={console.log("Socket Connected!")}
-                onDisconnect={console.log("Socket Disconnected!")}
-                ref={ (client) => { this.clientRef = client }}
-                debug = { true }
-                >
+                    topics={["/topic/Menus"]}
+                    onMessage={(msg) => { console.log("socket msg:" + msg) }}
+                    onConnect={console.log("Socket Connected!")}
+                    onDisconnect={console.log("Socket Disconnected!")}
+                    ref={(client) => { this.clientRef = client }}
+                    debug={true}>
                 </SockJsClient>
-                <div className="addNewMenuFormClass" >
-                    <h2> Add new menu </h2>
-                    <div className="menuNPDform">
-                        <label className="addmenulabelgeneric">Cost: </label><input className="ANMcostClass addmenuinputgeneric niceeffect" onChange={(e) => this.handleMenuPriceChange(e)} placeholder="Cost" ></input><br></br>
-                        <label className="addmenulabelgeneric amlgBottom">Description: </label><textarea className="ANMcostClass addmenuinputgeneric niceeffect" onChange={(e) => this.handleMenuDescriptionChange(e)} placeholder="Description - OPTIONAL" ></textarea><br></br>
-                    </div>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <hr></hr>
-                    <br></br>
-                    <h3> Menu meals </h3><br></br>
-                    {this.state.meals.map((meal, index) => {
-                        return (
-                            <div key={index}>
-                                <MenuMealForm parentMealId={this.handleMealIdChange}
-                                    parentMealName={this.handleMealNameChange}
-                                    parentMealPrice={this.handleMealPriceChange}
-                                    parentMealDescription={this.handleMealDescriptionChange}
-                                    parentRemoveMeal={this.handleRemove}
-                                    meals={this.state.mealsbymatch}
-                                    index={index}>
-                                </MenuMealForm>
+
+                <div className="createMenu">
+
+                    <h2>Crear Menú</h2>
+                    <div className="menuForm">
+                        <Form noValidate validated={this.state.validated} onSubmit={(event) => this.handleSubmit(event)}>
+                            <div className="menuFormSpecific">
+                                <Form.Group as={Row} controlId="formHorizontalMenuName">
+                                    <Form.Label column sm={2} md={2} lg={2} xl={1} className="ml-auto">Nombre:</Form.Label>
+                                    <Col sm={10} md={10} lg={7} xl={6} className="mr-auto">
+                                        <Form.Control type="text" placeholder="Nombre del menú"
+                                            required onChange={(e) => this.handleMenuNameChange(e)} />
+                                        <Form.Control.Feedback>Luce bien!</Form.Control.Feedback>
+                                        <Form.Control.Feedback type="invalid">Por favor ingresa un nombre al menú.</Form.Control.Feedback>
+                                        <Form.Text className="text-muted">El nombre de tu menú lo verán tus consumidores.</Form.Text>
+                                    </Col>
+                                </Form.Group>
+
+                                <Form.Group as={Row} controlId="formHorizontalMenuPrice">
+                                    <Form.Label column sm={2} md={2} lg={2} xl={1} className="ml-auto">Precio:</Form.Label>
+                                    <Col sm={10} md={10} lg={7} xl={6} className="mr-auto">
+                                        <Form.Control type="number" placeholder="Precio del menú"
+                                            required onChange={(e) => this.handleMenuPriceChange(e)} />
+                                        <Form.Control.Feedback>Luce bien!</Form.Control.Feedback>
+                                        <Form.Control.Feedback type="invalid">Por favor ingresa un precio al menú.</Form.Control.Feedback>
+                                        <Form.Text className="text-muted">Recuerda que los precios van entre ($7.000 - $13.000).</Form.Text>
+                                    </Col>
+                                </Form.Group>
+
+                                <Form.Group as={Row} controlId="formHorizontalMenuDesc">
+                                    <Form.Label column sm={2} md={2} lg={2} xl={1} className="ml-auto">Descripción:</Form.Label>
+                                    <Col sm={10} md={10} lg={7} xl={6} className="mr-auto">
+                                        <Form.Control as="textarea" rows="3" type="text" placeholder="Descripción del menú"
+                                            required onChange={(e) => this.handleMenuDescriptionChange(e)} />
+                                        <Form.Control.Feedback>Luce bien!</Form.Control.Feedback>
+                                        <Form.Control.Feedback type="invalid">Por favor ingresa una descripción al menú.</Form.Control.Feedback>
+                                        <Form.Text className="text-muted">Aquí puedes ser más especifico con tu menú.</Form.Text>
+                                    </Col>
+                                </Form.Group>
                             </div>
-                        )
-                    })}
-                    <button onClick={(e) => this.addMeal(e)}> Add meal </button>
-                    <hr></hr>
-                    <button onClick={(e) => this.addMenu(e)}> Add menu </button>
-                    <hr></hr>
-                    <br></br>
-                    <h2>Your menus</h2>
-                    <hr></hr>
+
+
+                            <hr />
+                            <h3>Añadir Ingredientes</h3>
+                            <div className="mealForm">
+                                {this.state.meals.map((meal, index) => {
+                                    return (
+                                        <div key={index}>
+                                            <MenuMealForm parentMealId={this.handleMealIdChange}
+                                                parentMealName={this.handleMealNameChange}
+                                                parentMealPrice={this.handleMealPriceChange}
+                                                parentMealDescription={this.handleMealDescriptionChange}
+                                                parentRemoveMeal={this.handleRemove}
+                                                meals={this.state.mealsbymatch}
+                                                index={index}>
+                                            </MenuMealForm>
+                                        </div>
+                                    )
+                                })}
+                                <Button type="button" variant="warning" className="buttonFormSpecific font-weight-bold" onClick={(e) => this.addMeal(e)}>
+                                    Añadir Ingrediente
+                                </Button>
+                            </div>
+                            <hr />
+
+                            <Button size="lg" type="reset" variant="success" className="buttonForm font-weight-bold" onClick={(event) => this.handleSubmit(event)}>
+                                Crear Menú
+                            </Button>
+                        </Form>
+                    </div>
                 </div>
-                <div className="menuCookContainer" >
-                    {this.state.menus.length === 0 && <div className="noMenusYetClass"><h4>You don´ t have any menus yet!</h4></div>}
-                    {this.state.menus.length > 0 &&
-                        this.state.menus.map((menu, index) => {
+
+                <hr />
+                <br />
+
+
+
+                <h2>Tus Menús</h2>
+                <div className="myMenus">
+                    {this.state.menus.length === 0 && <div className="noMenusYetClass">
+                        <Card>
+                            <Card.Header>Ups..</Card.Header>
+                            <Card.Body>
+                                <Card.Title>No tienes menús aún!</Card.Title>
+                                <Card.Text>
+                                    Para ver tus menús, primero debes crear uno.
+                                </Card.Text>
+                                <Button size="lg" href="Kitchen" variant="warning" className="buttonForm font-weight-bold">Crear Menus</Button>
+                            </Card.Body>
+                        </Card>
+                    </div>}
+
+                    <CardDeck className="my-0 py-0">
+                        {this.state.menus.length > 0 && this.state.menus.map((menu, index) => {
                             return (
-                                <div key={index} className="menuCont">
-                                    <h6>Description</h6><br></br>
-                                    <label>{menu.description}</label>
-                                    <h6>Price</h6><br></br>
-                                    <label>{menu.price}</label>
-                                    <div className="menuMealsCookContainer">
-                                        {menu.meals.map((meal,index) => {
-                                            return (
-                                                <div key={index} className="mealCont">
-                                                    <div><label className="mealContlabel"><h6>Name:</h6></label>{meal.name}</div>
-                                                    <div><label className="mealContlabel"><h6>Price:</h6></label>{meal.price}</div>
-                                                    <div><label className="mealContlabel"><h6>Description:</h6></label>{meal.description}</div>
-                                                </div>
-                                            )
-                                        })}
-                                    </div><br></br>
-                                    <button className="activateMenuBtn">Post menu</button>
+                                <div key={index}>
+                                    <Card className="menuCard" style={{ width: '18rem' }}>
+                                        <Card.Img variant="top" src={PlateMenuImage} />
+                                        <Card.Body>
+                                            <Card.Title>{menu.name}</Card.Title>
+                                            <Card.Text>{menu.description}</Card.Text>
+                                        </Card.Body>
+
+                                        <ListGroup className="list-group-flush">
+                                            {menu.meals.map((meal, index) => {
+                                                return (
+                                                    <div key={index} className="mealCont mx-auto">
+                                                        <ListGroupItem >
+                                                            <Row>
+                                                                <Col><label className="mealContlabel"><h6>Ingrediente:</h6></label><br />{meal.name}</Col>
+                                                                <Col>
+                                                                    <label className="mealContlabel"><h6>Precio:</h6></label><br />
+                                                                    <NumberFormat value={meal.price} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+                                                                </Col>
+                                                            </Row>
+                                                        </ListGroupItem>
+                                                    </div>
+                                                )
+                                            })}
+                                        </ListGroup>
+
+                                        <Card.Footer>
+                                            <Button size="lg" block variant="warning" className="buttonCard font-weight-bold">
+                                                <NumberFormat value={menu.price} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+                                            </Button>
+                                        </Card.Footer>
+                                    </Card>
                                 </div>
                             )
                         })
-                    }
+                        }
+                    </CardDeck>
                 </div>
-            </div>
+
+            </div >
         )
     }
 }

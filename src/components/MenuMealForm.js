@@ -1,5 +1,7 @@
-import React, { Component } from 'react'
-import './menuMealForm.css'
+import React, { Component } from 'react';
+import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+
+import './menuMealForm.css';
 
 export default class MenuMealForm extends Component {
 
@@ -13,7 +15,35 @@ export default class MenuMealForm extends Component {
         freetorender: false,
         suggestionshovered: false,
         mealName: '',
+        isLoading: false,
     }
+
+    componentDidMount () {
+        var url = 'http://localhost:8080/meal/list';
+        fetch(url, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(pkg => {
+                console.log(pkg)
+                this.setState({
+                    mealsbymatch: [],
+                })
+                this.setState({
+                    freetorender: true,
+                    mealsbymatch: [...this.state.mealsbymatch, ...pkg],
+                })
+            })
+            .catch(err => {
+                console.log(err);
+            });
+
+        console.log("\n\n\nMEALS 2: ");
+        console.log(this.state.mealsbymatch);
+    }
+
 
     handleMealRemove = () => {
         this.props.parentRemoveMeal(this.props.index);
@@ -41,15 +71,24 @@ export default class MenuMealForm extends Component {
                     freetorender: true,
                     mealsbymatch: [...this.state.mealsbymatch, ...pkg],
                 })
-                console.log(this.state.mealsbymatch)
+                console.log("MEALS STR: " + this.state.mealsbymatch);
             })
             .catch(err => {
                 console.log(err);
             });
+        console.log("Name: " + name);
+        console.log("Meal: " + this.state.mealName);
+        console.log("MEALS END: " + this.state.mealsbymatch);
     }
 
-    handleMealSelected = (name, id) => {
-        console.log(name + "," + id);
+    handleMealSelected = (name) => {
+        var id = 0;
+        this.state.mealsbymatch.map ((meal, index) => {
+            if (meal.name === name) {
+                id = meal.id;
+            }
+        })
+        
         this.setState({
             mealName: name,
         })
@@ -94,30 +133,51 @@ export default class MenuMealForm extends Component {
     render() {
         return (
             <div>
-                <input className="DMgeneric DMname niceeffect"
-                    placeholder="Name of the meal"
-                    onFocus={this.handleOnFocused}
-                    onBlur={this.handleOnBlur}
-                    onChange={(e) => this.handleMealNameChange(e)}
-                    value={this.state.mealName}>
-                </input><button className="DMgeneric DMmealRemove"
-                    onClick={this.handleMealRemove}>Remove meal</button><br></br>
-                {this.state.focused && this.state.freetorender && <div onMouseEnter={() => this.handleSuggestionEnter()}
-                                onMouseLeave={() => this.handleSuggestionLeave()} className="mealsbymatchclass"> {
-                    this.state.mealsbymatch.map((meal, index) => {
-                        return (
-                            <button 
-                                onClick={() => this.handleMealSelected(meal.name, meal.id)}>{meal.name}</button>
-                        )
-                    })
-                } </div>}
-                <input className="DMgeneric DMprice niceeffect"
-                    placeholder="Price of the meal"
-                    onChange={(e) => this.handleMealPriceChange(e)}></input><br></br>
-                <textarea className="DMgeneric DMdescription niceeffect"
-                    placeholder="A description is optional"
-                    onChange={(e) => this.handleMealDescriptionChange(e)}></textarea>
-                <hr></hr>
+                <hr />
+                <Button type="reset" variant="danger" className="buttonFormSpecific font-weight-bold" onClick={this.handleMealRemove}>
+                    Eliminar Ingrediente
+                </Button>
+
+                <div className="mealFormSpecific">
+                    <Form.Group as={Row} controlId="formHorizontalMealName">
+                        <Form.Label column sm={2} md={2} lg={2} xl={1} className="ml-auto">Nombre:</Form.Label>
+                        <Col sm={10} md={10} lg={7} xl={6} className="mr-auto">
+                            <Form.Control as="select" placeholder="Nombre del ingrediente"
+                                // value={this.state.mealName}
+                                value="Seleccionar"
+                                onChange={(event) => this.handleMealSelected(event.target.value)}                                
+                                required >  
+                                {this.state.mealsbymatch.map((meal, index) =>
+                                    <option key={index}>{meal.name}</option>)}                               
+                            </Form.Control>
+                            <Form.Control.Feedback>Luce bien!</Form.Control.Feedback>
+                            <Form.Control.Feedback type="invalid">Por favor selecciona un ingrediente.</Form.Control.Feedback>
+                            <Form.Text className="text-muted">El nombre del ingrediente usado en tu menú.</Form.Text>
+                        </Col>
+                    </Form.Group>
+
+                    <Form.Group as={Row} controlId="formHorizontalMenuPrice">
+                        <Form.Label column sm={2} md={2} lg={2} xl={1} className="ml-auto">Precio Porción:</Form.Label>
+                        <Col sm={10} md={10} lg={7} xl={6} className="mr-auto">
+                            <Form.Control type="number" placeholder="Precio de la porción adicional"
+                                required onChange={(e) => this.handleMealPriceChange(e)} />
+                            <Form.Control.Feedback>Luce bien!</Form.Control.Feedback>
+                            <Form.Control.Feedback type="invalid">Por favor ingresa el precio de la porción adicional.</Form.Control.Feedback>
+                            <Form.Text className="text-muted">Este precio es por la porción adicional de tu ingrediente</Form.Text>
+                        </Col>
+                    </Form.Group>
+
+                    <Form.Group as={Row} controlId="formHorizontalMenuDesc">
+                        <Form.Label column sm={2} md={2} lg={2} xl={1} className="ml-auto">Descripción:</Form.Label>
+                        <Col sm={10} md={10} lg={7} xl={6} className="mr-auto">
+                            <Form.Control as="textarea" rows="2" type="text" placeholder="Descripción del ingrediente"
+                                onChange={(e) => this.handleMealDescriptionChange(e)} />
+                            <Form.Control.Feedback>Luce bien!</Form.Control.Feedback>
+                            <Form.Control.Feedback type="invalid">Por favor ingresa una descripción al ingrediente.</Form.Control.Feedback>
+                            <Form.Text className="text-muted">Indicanos sí el ingrediente tiene una preparación especial.</Form.Text>
+                        </Col>
+                    </Form.Group>
+                </div>
             </div>
         )
     }
