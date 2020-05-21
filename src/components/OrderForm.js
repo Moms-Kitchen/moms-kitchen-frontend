@@ -42,6 +42,7 @@ export default class OrderForm extends Component {
                 </SockJsClient> */}
                 {this.state.orders.length > 0 && 
                     this.state.orders.map((order,index) => {
+                        console.log(order)
                         return(
                             <div key={index}>
                                 <hr></hr>
@@ -51,7 +52,7 @@ export default class OrderForm extends Component {
                                 </div><br></br>
                                 <div>
                                     <label>Resumen</label><br></br>                                   
-                                    <input type="text" placeholder={"Chef: " + order.menus[0].chef.name} disabled />
+                                    <input type="text" placeholder={"Chef: " + order.customer.name} disabled />
                                     <input type="text" placeholder={"Chef address: " + order.menus[0].chef.address} disabled />                                    
                                     <input type="text" placeholder={order.menus[0].description} disabled />
                                     <input type="text" placeholder={"Cost: $" + order.menus[0].price} disabled />
