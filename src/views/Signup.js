@@ -83,7 +83,7 @@ export default class Signup extends Component {
                     await this.createUser();
                     console.log(this.state.newuser);
                     //var url = 'https://momskitchenieti.herokuapp.com/session/user';
-                    var url = 'http://localhost:8080/session/user';
+                    var url = 'https://momskitchenieti.herokuapp.com/session/user';
                     fetch(url, {
                         method: 'POST',
                         headers: {

@@ -5,10 +5,9 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Login from './views/Login';
 import Signup from './views/Signup'
 import Kitchen from './views/Kitchen';
-import ShoppingCart from './views/ShoppingCart';
 import Menu from './views/Menu';
-
-import Orders from './components/Orders';
+import ShoppingCart from './views/ShoppingCart';
+import Order from './views/Order';
 
 
 
@@ -22,8 +21,7 @@ function App() {
         <Route exact path='/Kitchen' component={Kitchen}></Route>
         <Route exact path='/ShoppingCart' component={ShoppingCart}></Route>
         <Route exact path='/Menu' component={Menu}></Route>
-
-        <Route exact path='/orders' component={Orders}></Route>        
+        <Route exact path='/Order' component={Order}></Route>        
         
       </Switch>
     </BrowserRouter>

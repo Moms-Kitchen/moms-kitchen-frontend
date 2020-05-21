@@ -15,7 +15,7 @@ export default class MenusCustomer extends Component {
     }
 
     componentDidMount() {
-        var url = 'http://localhost:8080/menus/list';
+        var url = 'https://momskitchenieti.herokuapp.com/menus/list';
         fetch(url, {
             headers: {
                 'Content-Type': 'application/json'
@@ -45,7 +45,7 @@ export default class MenusCustomer extends Component {
             pendingPayment: true,
         }
         console.log(ordertosend);
-        fetch('http://localhost:8080/orders/createOrder', {
+        fetch('https://momskitchenieti.herokuapp.com/orders/createOrder', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -71,7 +71,7 @@ export default class MenusCustomer extends Component {
     render() {
         return (
             <div className="menusCustomer">
-                <SockJsClient url={'http://localhost:8080/stompendpoint'}
+                <SockJsClient url={'https://momskitchenieti.herokuapp.com/stompendpoint'}
                     topics={["/topic/Menus"]}
                     onMessage={(msg) => {
                         console.log("socket msg:" + msg.length);

@@ -19,7 +19,7 @@ export default class MenuMealForm extends Component {
     }
 
     componentDidMount () {
-        var url = 'http://localhost:8080/meal/list';
+        var url = 'https://momskitchenieti.herokuapp.com/meal/list';
         fetch(url, {
             headers: {
                 'Content-Type': 'application/json'
@@ -55,7 +55,7 @@ export default class MenuMealForm extends Component {
             freetorender: false,
             mealName: name,
         })
-        var url = 'http://localhost:8080/meal/stringmeal/' + name;
+        var url = 'https://momskitchenieti.herokuapp.com/meal/stringmeal/' + name;
         fetch(url, {
             headers: {
                 'Content-Type': 'application/json'

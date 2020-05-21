@@ -40,7 +40,7 @@ class Login extends Component {
         } else {
             if (this.state.email.includes('@')) {
                 //var url = 'https://momskitchenieti.herokuapp.com/session/' + this.state.email + '/' + this.state.password;
-                var url = 'http://localhost:8080/session/' + this.state.email + '/' + this.state.password;
+                var url = 'https://momskitchenieti.herokuapp.com/session/' + this.state.email + '/' + this.state.password;
                 fetch(url, {
                     headers: {
                         'Content-Type': 'application/json'

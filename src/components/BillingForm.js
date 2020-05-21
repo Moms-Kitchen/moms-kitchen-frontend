@@ -16,7 +16,7 @@ class BillingForm extends Component {
     }
 
     componentDidMount() {
-        var url = 'http://localhost:8080/orders/cart/' + Cookies.getJSON('cook').id;
+        var url = 'https://momskitchenieti.herokuapp.com/orders/cart/' + Cookies.getJSON('cook').id;
         fetch(url, {
             headers: {
                 'Content-Type': 'application/json'
@@ -49,65 +49,69 @@ class BillingForm extends Component {
                     {this.state.orders.map((order, index) => {
                         return (
                             <div key={index}>
-                                <Card className="boxShadowPro">
-                                    <Card.Header>Menú # {index + 1}</Card.Header>
+                                <Card className="menuCard boxShadowPro">
+                                    <Card.Header>
+                                        <Button size="lg" block variant="danger" className="buttonCard font-weight-bold">
+                                            Menú # {index + 1}
+                                        </Button>
+                                    </Card.Header>
                                     <Card.Body>
                                         <Card.Title>Fecha:</Card.Title>
-                                        <Card.Text>
-                                            Para ver tus menús, primero debes crear uno.
-                                        </Card.Text>
+                                        <div className="dataCont">
+                                            <BillingDate ></BillingDate>
+                                        </div>
 
-                                        <Card.Title>Resumen:</Card.Title>
-                                        <Form>
+                                        <Card.Title className="tittleCont">Resumen:</Card.Title>
+                                        <Form className="dataCont" >
                                             <Form.Row>
                                                 <Form.Group as={Col} controlId="formGridName">
-                                                    <Form.Label>Chef</Form.Label>
-                                                    <Form.Control disabled type="text" placeholder={order.menus[0].chef.name} />
+                                                    <Form.Label className="my-0 py-0">Chef</Form.Label>
+                                                    <Form.Control className="my-0 py-0" disabled type="text" placeholder={order.menus[0].chef.name} />
                                                 </Form.Group>
 
                                                 <Form.Group as={Col} controlId="formGridRating">
-                                                    <Form.Label>Calificación</Form.Label>
-                                                    <Form.Control disabled type="text" placeholder={order.menus[0].chef.rating} />
+                                                    <Form.Label className="my-0 py-0">Calificación</Form.Label>
+                                                    <Form.Control className="my-0 py-0" disabled type="text" placeholder={order.menus[0].chef.rating} />
                                                 </Form.Group>
                                             </Form.Row>
 
                                             <Form.Row>
                                                 <Form.Group as={Col} controlId="formGridPhone">
-                                                    <Form.Label>Celular</Form.Label>
-                                                    <Form.Control disabled type="text" placeholder={order.menus[0].chef.phone} />
+                                                    <Form.Label className="my-0 py-0">Celular</Form.Label>
+                                                    <Form.Control className="my-0 py-0" disabled type="text" placeholder={order.menus[0].chef.phone} />
                                                 </Form.Group>
 
                                                 <Form.Group as={Col} controlId="formGridChefAddress">
-                                                    <Form.Label>Dirección del Chef</Form.Label>
-                                                    <Form.Control disabled type="text" placeholder={order.menus[0].chef.address} />
+                                                    <Form.Label className="my-0 py-0">Dirección Chef</Form.Label>
+                                                    <Form.Control className="my-0 py-0" disabled type="text" placeholder={order.menus[0].chef.address} />
                                                 </Form.Group>
                                             </Form.Row>
 
                                             <Form.Row>
                                                 <Form.Group as={Col} controlId="formGridMenu">
-                                                    <Form.Label>Menú</Form.Label>
-                                                    <Form.Control disabled type="text" placeholder={order.menus[0].name} />
+                                                    <Form.Label className="my-0 py-0">Menú</Form.Label>
+                                                    <Form.Control className="my-0 py-0" disabled type="text" placeholder={order.menus[0].name} />
                                                 </Form.Group>
 
                                                 <Form.Group as={Col} controlId="formGridPrecio">
-                                                    <Button size="lg" block variant="warning" className="buttonCard font-weight-bold">
+                                                    <Button size="lg" block variant="warning" className="buttonCard font-weight-bold mt-3" >
                                                         <NumberFormat value={order.menus[0].price} displayType={'text'} thousandSeparator={true} prefix={'$'} />
                                                     </Button>
                                                 </Form.Group>
                                             </Form.Row>
                                         </Form>
 
-                                        <Card.Title>Información de Entrega:</Card.Title>
-                                        <Form>
+                                        <Card.Title className="tittleCont">Información de Entrega:</Card.Title>
+                                        <Form className="dataCont">
                                             <Form.Row>
                                                 <Form.Group as={Col} controlId="formGridUserAddress">
-                                                    <Form.Label>Dirección de Entrega</Form.Label>
-                                                    <Form.Control disabled type="text" placeholder={Cookies.getJSON('cook').address} />
+                                                    <Form.Label className="my-0 py-0">Dirección Entrega</Form.Label>
+                                                    <Form.Control className="my-0 py-0" disabled type="text" placeholder={Cookies.getJSON('cook').address} />
                                                 </Form.Group>
 
                                                 <Form.Group as={Col} controlId="formGridTime">
-                                                    <Form.Label>Tiempo de Entrega</Form.Label>
-                                                    <Form.Control disabled type="text" placeholder="15 minutos" />
+                                                    <Form.Label className="my-0 py-0">Tiempo de Entrega</Form.Label>
+                                                    <Form.Control className="my-0 py-0" disabled type="text" placeholder="15 minutos" />
                                                 </Form.Group>
                                             </Form.Row>
                                         </Form>
@@ -119,49 +123,23 @@ class BillingForm extends Component {
                                         />
                                     </Card.Body>
                                 </Card>
-
-                                {/** 
-                                <hr></hr>
-                                <div>
-                                    <label for="exampleEmail">Date</label><br></br>
-                                    <BillingDate></BillingDate>
-                                </div><br></br>
-                                <div>
-
-                                    <label for="examplePassword">Resumen</label><br></br>
-                                    <input type="text" placeholder={"Chef: " + order.menus[0].chef.name} disabled />
-                                    <input type="text" placeholder={"Chef address: " + order.menus[0].chef.address} disabled />
-                                    <input type="text" placeholder={order.menus[0].description} disabled />
-                                    <input type="text" placeholder={"Cost: $" + order.menus[0].price} disabled />
-                                </div><br></br>
-                                <div>
-                                    <label for="exampleSelect">Delivery data</label><br></br>
-                                    <input type="text" placeholder={"Address to deliver: " + Cookies.getJSON('cook').address} disabled />
-                                    <input type="text" placeholder="10 minutes" disabled />
-                                </div>
-                                <div check>
-                                    <label check>
-                                        <input type="checkbox" />{' '}
-                                        Check me out
-                                    </label>
-                                </div>
-                                */}
                             </div>
                         )
                     })
                     }
-                    
-                    <h3>Valor Total</h3>
-                    <Form>
-                        <Form.Group as={Row} controlId="formHorizontalTotal">
-                            <Form.Label column sm={2} md={2} lg={2} xl={1} className="ml-auto">Total del carrito:</Form.Label>
-                            <Col sm={10} md={10} lg={7} xl={6} className="mr-auto">
-                                <Form.Control disabled type="text" placeholder={this.state.total} />
-                            </Col>
-                        </Form.Group>
-                    </Form>
 
-                    <Button size="lg" href="Kitchen" variant="success" style={{ border: 'medium solid black' }} className="buttonForm boxShadowPro font-weight-bold">Pagar</Button>
+                    <Row>
+                        <Col className="valorTotal">
+                            <h3>Valor Total</h3>
+                        </Col>
+                        <Col>
+                            <Button size="lg" block variant="danger" className="buttonCard boxShadowPro font-weight-bold" >
+                                <NumberFormat value={this.state.total} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+                            </Button>
+                        </Col>
+                    </Row>
+
+                    <Button size="lg" href="Menu" variant="success" style={{ border: 'medium solid black' }} className="buttonForm boxShadowPro font-weight-bold">Pagar</Button>
 
                 </div>
             </div >

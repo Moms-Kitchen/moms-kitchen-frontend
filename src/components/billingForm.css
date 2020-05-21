@@ -10,9 +10,24 @@
     width: 90%;  
 }
 
+.menuCard {
+    position: relative;
+    margin: 30px 0%;
+}
 
+.dataCont{
+    position: relative;
+    margin: 0px 10%;
+}
 
+.tittleCont{
+    position: relative;
+    margin: 3% 0;
+}
 
+.valorTotal {
+    text-align: right;
+}
 
 
 
@@ -21,7 +36,7 @@
 
 .buttonForm {
     position: relative;
-    margin: 0% 5%;
+    margin: 30px 5%;
     width: 90%;
 }
 

@@ -26,7 +26,7 @@ export default class MenusCookForm extends Component {
     componentDidMount() {
         const cook = Cookies.getJSON('cook');
         console.log(cook.id);
-        var url = 'http://localhost:8080/menus/chef/' + cook.id;
+        var url = 'https://momskitchenieti.herokuapp.com/menus/chef/' + cook.id;
         fetch(url, {
             headers: {
                 'Content-Type': 'application/json'
@@ -119,7 +119,7 @@ export default class MenusCookForm extends Component {
         await this.validateMeals();
 
         if (this.menutosend.name !== "" && this.menutosend.id !== "" && this.menutosend.price !== 0 && this.menutosend.meals.length > 0 && this.menutosend.description != '' && this.state.validmeals) {
-            fetch('http://localhost:8080/menus/createMenu', {
+            fetch('https://momskitchenieti.herokuapp.com/menus/createMenu', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -181,7 +181,7 @@ export default class MenusCookForm extends Component {
 
         return (
             <div className="menusCook" >
-                <SockJsClient url={'http://localhost:8080/stompendpoint'}
+                <SockJsClient url={'https://momskitchenieti.herokuapp.com/stompendpoint'}
                     topics={["/topic/Menus"]}
                     onMessage={(msg) => { console.log("socket msg:" + msg) }}
                     onConnect={console.log("Socket Connected!")}
