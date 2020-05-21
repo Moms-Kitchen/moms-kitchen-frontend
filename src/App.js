@@ -9,6 +9,9 @@ import Menu from './views/Menu';
 import ShoppingCart from './views/ShoppingCart';
 import Order from './views/Order';
 
+import Home from './views/Home';
+import Contact from './views/Contact';
+
 
 
 function App() {
@@ -21,7 +24,10 @@ function App() {
         <Route exact path='/Kitchen' component={Kitchen}></Route>
         <Route exact path='/ShoppingCart' component={ShoppingCart}></Route>
         <Route exact path='/Menu' component={Menu}></Route>
-        <Route exact path='/Order' component={Order}></Route>        
+        <Route exact path='/Order' component={Order}></Route>     
+        
+        <Route exact path='/Home' component={Home}></Route>
+        <Route exact path='/Contact' component={Contact}></Route> 
 
         
       </Switch>
