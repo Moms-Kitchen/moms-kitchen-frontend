@@ -94,7 +94,7 @@ class NavBar extends Component {
                     <Navbar.Collapse id="responsive-navbar-nav" className="my-0 py-0">
                         <Nav className="mr-auto menus">
                             <Col xs={{ offset: 0 }} sm={{ offset: 0 }} >
-                                <Nav.Link href="#home">Home</Nav.Link>
+                                <Nav.Link href="Home">Home</Nav.Link>
                             </Col>
                             <Col xs={{ offset: 0 }} sm={{ offset: 0 }} >
                                 <NavDropdown title="Servicios" id="collasible-nav-dropdown">
@@ -103,10 +103,10 @@ class NavBar extends Component {
                                 </NavDropdown>
                             </Col>
                             <Col xs={{ offset: 0 }} sm={{ offset: 0 }} >
-                                <Nav.Link href="#info">Info</Nav.Link>
+                                <Nav.Link href="Contact">Info</Nav.Link>
                             </Col>
                             <Col xs={{ offset: 0 }} sm={{ offset: 0 }} >
-                                <Nav.Link href="#contacto">Contacto</Nav.Link>
+                                <Nav.Link href="Contact">Contacto</Nav.Link>
                             </Col>
                         </Nav>
 

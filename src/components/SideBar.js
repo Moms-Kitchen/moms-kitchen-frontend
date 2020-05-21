@@ -17,13 +17,13 @@ class SideBar extends Component {
         return (
             <div>
                 <SideNav className="sideBar boxShadowPro" onSelect={(selected) => {
-                        // Add your code here
-                    }}>
+                    // Add your code here
+                }}>
                     <SideNav.Toggle />
                     <SideNav.Nav defaultSelected="home">
                         <NavItem eventKey="home">
                             <NavIcon>
-                                <i className="fa fa-fw fa-home" style={{ fontSize: '1.75em' }} />
+                                <a href="Home"><i className="fa fa-fw fa-home" style={{ fontSize: '1.75em' }} /></a>
                             </NavIcon>
                             <NavText>
                                 Home
@@ -31,18 +31,42 @@ class SideBar extends Component {
                         </NavItem>
                         <NavItem eventKey="charts">
                             <NavIcon>
-                                <i className="fa fa-fw fa-line-chart" style={{ fontSize: '1.75em' }} />
+                                <a href="Kitchen"><i className="fa fa-fw fa-file-text-o" style={{ fontSize: '1.75em' }} /></a>
                             </NavIcon>
                             <NavText>
                                 Charts
                             </NavText>
                         </NavItem>
-                        <NavItem eventKey="Square">
+                        <NavItem eventKey="charts">
                             <NavIcon>
-                                <i className="fa fa-fw fa-linkedin-square" style={{ fontSize: '1.75em' }} />
+                                <a href="Menu"><i className="fa fa-fw fa-file" style={{ fontSize: '1.75em' }} /></a>
+                            </NavIcon>
+                            <NavText>
+                                Charts
+                            </NavText>
+                        </NavItem>
+                        <NavItem eventKey="Contacto">
+                            <NavIcon>
+                                <a href="ShoppingCart"> <i className="fa fa-fw fa-shopping-cart" style={{ fontSize: '1.75em' }} /></a>
                             </NavIcon>
                             <NavText>
                                 Square
+                            </NavText>
+                        </NavItem>
+                        <NavItem eventKey="Contacto">
+                            <NavIcon>
+                                <a href="Order"> <i className="fa fa-fw fa-shopping-basket" style={{ fontSize: '1.75em' }} /></a>
+                            </NavIcon>
+                            <NavText>
+                                Square
+                            </NavText>
+                        </NavItem>
+                        <NavItem eventKey="charts">
+                            <NavIcon>
+                                <a href="Contact"><i className="fa fa-fw fa-info" style={{ fontSize: '1.75em' }} /></a>
+                            </NavIcon>
+                            <NavText>
+                                Charts
                             </NavText>
                         </NavItem>
                     </SideNav.Nav>
