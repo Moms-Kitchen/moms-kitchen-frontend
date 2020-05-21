@@ -1,16 +1,49 @@
-.billingFormClass{
-    position: absolute;
-    top: 20vh;
-    left: 25vw;
-    height: 83vh;
-    width: 50vw;
-    background-color: darkseagreen;
-    border-radius: 5px;
-    border: 1px solid black;
-    margin: 0 0 10% 0;
+.billing{
+    position: relative;
+    margin: 2% 5%;
+    width: 90%;
 }
 
-.billingGeneric{
-    padding: 5% 5% 5% 5%;
-    margin: 0;
+.carritoCompras {
+    position: relative;
+    margin: 0% 5%;
+    width: 90%;  
+}
+
+
+
+
+
+
+
+
+
+
+.buttonForm {
+    position: relative;
+    margin: 0% 5%;
+    width: 90%;
+}
+
+.buttonFormSpecific {
+    position: relative;
+    margin: 0% 15%;
+    width: 70%;
+}
+
+.buttonCard {    
+    font-weight: bold;
+}
+
+.boxShadowPro {
+    box-shadow: 0 4px 19px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.boxBorderPro {
+    border: medium solid black;
+
+}
+
+.normalCursor {
+    cursor: crosshair;
 }

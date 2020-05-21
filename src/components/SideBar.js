@@ -16,7 +16,7 @@ class SideBar extends Component {
     render() {
         return (
             <div>
-                <SideNav className="sideBar" onSelect={(selected) => {
+                <SideNav className="sideBar boxShadowPro" onSelect={(selected) => {
                         // Add your code here
                     }}>
                     <SideNav.Toggle />

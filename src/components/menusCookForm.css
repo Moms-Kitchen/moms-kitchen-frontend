@@ -62,6 +62,8 @@
 }
 
 
+
+
 .buttonForm {
     position: relative;
     margin: 0% 5%;
@@ -76,6 +78,19 @@
 
 .buttonCard {    
     font-weight: bold;
+}
+
+.boxShadowPro {
+    box-shadow: 0 4px 19px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.boxBorderPro {
+    border: medium solid black;
+
+}
+
+.normalCursor {
+    cursor: crosshair;
 }
 
 

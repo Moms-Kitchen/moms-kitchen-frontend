@@ -248,13 +248,13 @@ export default class MenusCookForm extends Component {
                                         </div>
                                     )
                                 })}
-                                <Button type="button" variant="warning" className="buttonFormSpecific font-weight-bold" onClick={(e) => this.addMeal(e)}>
+                                <Button type="button" variant="warning" style={{ border: 'thin solid black' }} className="buttonFormSpecific boxShadowPro font-weight-bold" onClick={(e) => this.addMeal(e)}>
                                     Añadir Ingrediente
                                 </Button>
                             </div>
                             <hr />
 
-                            <Button size="lg" type="reset" variant="success" className="buttonForm font-weight-bold" onClick={(event) => this.handleSubmit(event)}>
+                            <Button size="lg" type="reset" variant="success" style={{ border: 'medium solid black' }} className="buttonForm boxShadowPro font-weight-bold" onClick={(event) => this.handleSubmit(event)}>
                                 Crear Menú
                             </Button>
                         </Form>
@@ -269,14 +269,14 @@ export default class MenusCookForm extends Component {
                 <h2>Tus Menús</h2>
                 <div className="myMenus">
                     {this.state.menus.length === 0 && <div className="noMenusYetClass">
-                        <Card>
+                        <Card className="boxShadowPro">
                             <Card.Header>Ups..</Card.Header>
                             <Card.Body>
                                 <Card.Title>No tienes menús aún!</Card.Title>
                                 <Card.Text>
                                     Para ver tus menús, primero debes crear uno.
                                 </Card.Text>
-                                <Button size="lg" href="Kitchen" variant="warning" className="buttonForm font-weight-bold">Crear Menus</Button>
+                                <Button size="lg" href="Kitchen" variant="danger" style={{ border: 'medium solid black' }} className="buttonForm boxShadowPro font-weight-bold">Crear Menus</Button>
                             </Card.Body>
                         </Card>
                     </div>}
@@ -285,7 +285,7 @@ export default class MenusCookForm extends Component {
                         {this.state.menus.length > 0 && this.state.menus.map((menu, index) => {
                             return (
                                 <div key={index}>
-                                    <Card className="menuCard" style={{ width: '18rem' }}>
+                                    <Card className="menuCard boxShadowPro" style={{ width: '18rem' }}>
                                         <Card.Img variant="top" src={PlateMenuImage} />
                                         <Card.Body>
                                             <Card.Title>{menu.name}</Card.Title>
@@ -311,7 +311,7 @@ export default class MenusCookForm extends Component {
                                         </ListGroup>
 
                                         <Card.Footer>
-                                            <Button size="lg" block variant="warning" className="buttonCard font-weight-bold">
+                                            <Button size="lg" block variant="warning" style={{ border: 'medium solid black' }} className="buttonCard boxShadowPro font-weight-bold">
                                                 <NumberFormat value={menu.price} displayType={'text'} thousandSeparator={true} prefix={'$'} />
                                             </Button>
                                         </Card.Footer>

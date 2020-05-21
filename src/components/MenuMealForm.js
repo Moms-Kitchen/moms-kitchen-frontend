@@ -134,7 +134,7 @@ export default class MenuMealForm extends Component {
         return (
             <div>
                 <hr />
-                <Button type="reset" variant="danger" className="buttonFormSpecific font-weight-bold" onClick={this.handleMealRemove}>
+                <Button type="reset" variant="danger" style={{ border: 'thin solid black' }} className="buttonFormSpecific boxShadowPro font-weight-bold" onClick={this.handleMealRemove}>
                     Eliminar Ingrediente
                 </Button>
 

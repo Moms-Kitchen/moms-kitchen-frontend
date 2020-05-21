@@ -71,7 +71,7 @@ class NavBar extends Component {
     render() {
         /*<AppBar position="sticky"> */
         return (
-            <div className="navBar" style={{top: this.state.top}}>
+            <div className="navBar boxShadowPro" style={{top: this.state.top}}>
                 <Navbar collapseOnSelect expand="md" bg="light" variant="light" className="my-0 py-1">
                     <Navbar.Brand href="#home">
                         <img
