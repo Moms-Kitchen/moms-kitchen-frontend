@@ -26,6 +26,7 @@ class Login extends Component {
         super(props);
         this.state = {
             authenticated: false,
+            toSignup: false,
             email: "",
             password: ""
         }
@@ -34,6 +35,7 @@ class Login extends Component {
         this.checkUserCredentials = this.checkUserCredentials.bind(this);
         this.formPreventDefault = this.formPreventDefault.bind(this);
         this.pruebaDatos = this.pruebaDatos.bind(this);
+        this.toSignupView = this.toSignupView.bind(this);
     }
 
     handleUsernameChange(event) {
@@ -157,7 +159,7 @@ class Login extends Component {
                                 </Button>
                                 <Grid container className="createButton">
                                     <Grid item xs>
-                                        <Link href="#" variant="body2">
+                                        <Link href="#" variant="body2" onClick={this.toSignupView}>
                                             Crear Cuenta
                                         </Link>
                                     </Grid>
@@ -173,10 +175,17 @@ class Login extends Component {
         );
     }
 
+    toSignupView(){
+        this.setState({
+            toSignup: true,
+        })
+    }
+
     render() {
         return (
             <div>
                 {this.state.authenticated && <Redirect to='/Kitchen'></Redirect>}
+                {this.state.toSignup && <Redirect to='/signup'></Redirect>}
                 {this.SignInSide()}
             </div>
         )
